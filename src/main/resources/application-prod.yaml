@@ -1,0 +1,24 @@
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: almustaphat.tukur@gmail.com
+    password: hlyisvlwobmekpbu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

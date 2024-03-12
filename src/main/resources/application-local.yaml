@@ -1,0 +1,51 @@
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://${LOCAL_DB_HOST}:${LOCAL_DB_PORT}/${LOCAL_DB_NAME}
+    username: ${LOCAL_DB_USERNAME}
+    password: ${LOCAL_DB_PASSWORD}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${LOCAL_EMAIL_USER}
+    password: ${LOCAL_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+
+#spring:
+#  sql:
+#    init:
+#      mode: always
+#  jpa:
+#    defer-datasource-initialization: true
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: false
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/oasis_task_management
+#    username: postgres
+#    password: atumar4031
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: almustaphat.tukur@gmail.com
+#    password: hlyisvlwobmekpbu
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
