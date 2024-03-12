@@ -24,9 +24,9 @@ spring:
             enable: true
 app:
   token:
-    expiration: ${LOCAL_JWT_ACC_TIME}
-    refresh-expiration: ${LOCAL_JWT_REF_TIME}
-    secret: ${LOCAL_JWT_SECRET}
+    expiration: 180000
+    refresh-expiration: 360000
+    secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
 
 
 #spring:
