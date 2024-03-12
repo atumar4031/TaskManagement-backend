@@ -1,11 +1,5 @@
 spring:
-  profiles:
-    active: prod
+#  profiles:
+#    active: prod
   application:
     name: TaskManagementApplication
-
-app:
-  token:
-    expiration: ${JWT_ACC_TIME}
-    refresh-expiration: ${JWT_REF_TIME}
-    secret: ${JWT_SECRET}
