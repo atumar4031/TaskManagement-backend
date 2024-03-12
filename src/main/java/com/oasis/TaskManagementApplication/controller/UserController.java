@@ -25,22 +25,30 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    @GetMapping
-    public ResponseEntity<BaseResponse<List<UserResponse>>> getUsers() {
-        BaseResponse<List<UserResponse>> response = userService.getUsers();
+//    @GetMapping
+//    public ResponseEntity<BaseResponse<List<UserResponse>>> getUsers() {
+//        BaseResponse<List<UserResponse>> response = userService.getUsers();
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(response);
+//    }
+
+    @GetMapping("/details")
+    public ResponseEntity<BaseResponse<UserResponse>> getUserById(@CurrentUser UserPrincipal userPrincipal) {
+        BaseResponse<UserResponse> response = userService.getUserById(userPrincipal);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
     }
 
-    @GetMapping("/paged")
-    public ResponseEntity<PageResponse<UserResponse>> getUsers(@RequestParam(defaultValue = "0") int page,
-                                                               @RequestParam(defaultValue = "500") int size) {
-        PageResponse<UserResponse> response = userService.getUsers(page, size);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(response);
-    }
+//    @GetMapping("/paged")
+//    public ResponseEntity<PageResponse<UserResponse>> getUsers(@RequestParam(defaultValue = "0") int page,
+//                                                               @RequestParam(defaultValue = "500") int size) {
+//        PageResponse<UserResponse> response = userService.getUsers(page, size);
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(response);
+//    }
 
     @PutMapping("/update/{userId}")
     public ResponseEntity<BaseResponse<UserResponse>> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest,

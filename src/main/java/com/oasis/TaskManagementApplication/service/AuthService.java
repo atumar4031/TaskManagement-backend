@@ -50,10 +50,10 @@ public class AuthService {
         }
 
         roleRepo.findByName(USER_ROLE)
-                    .orElseThrow(() -> new ResourceNotFoundException(new APIResponse(Boolean.FALSE, "Role doesn't exist")));
+                    .orElseThrow(() -> new ResourceNotFoundException("Role doesn't exist"));
 
         if(!userRequest.getPassword().equals(userRequest.getConfirmPassword())){
-            throw new BadRequestException(new APIResponse(Boolean.FALSE, "Passwords not match"));
+            throw new BadRequestException("Passwords not match");
         }
 
         User newUser = User.builder()
@@ -91,7 +91,7 @@ public class AuthService {
         );
 
         var user = userRepo.findByUsername(request.getUsername())
-                .orElseThrow(() -> new BadRequestException(new APIResponse(Boolean.FALSE, "User not found")));
+                .orElseThrow(() -> new BadRequestException("User not found"));
 
         var jwtToken = jwtTokenProvider.generateToken(user);
         var refreshToken = jwtTokenProvider.generateRefreshToken(user);

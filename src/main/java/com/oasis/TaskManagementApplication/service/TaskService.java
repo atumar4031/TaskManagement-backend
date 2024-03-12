@@ -35,8 +35,7 @@ public class TaskService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime scheduleTime = LocalDateTime.parse(taskRequest.getDueDate(), formatter);
         if (scheduleTime.isAfter(LocalDateTime.now())) {
-            throw new BadRequestException(new APIResponse(Boolean.FALSE,
-                    "Date time can not be less than current time"));
+            throw new BadRequestException("Date time can not be less than current time");
         }
 
         Task task = new Task();
@@ -55,7 +54,7 @@ public class TaskService {
     public BaseResponse<TaskResponse> updateTask(TaskRequest taskRequest, long taskId, UserPrincipal userPrincipal) {
 
         Task task = taskRepo.findById(taskId)
-                .orElseThrow(() -> new BadRequestException(new APIResponse(Boolean.FALSE, "Task not found")));
+                .orElseThrow(() -> new BadRequestException("Task not found"));
         if (taskRequest.getTitle() != null) {
             task.setTitle(taskRequest.getTitle());
         }
@@ -69,8 +68,7 @@ public class TaskService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime scheduleTime = LocalDateTime.parse(taskRequest.getDueDate(), formatter);
             if (scheduleTime.isAfter(LocalDateTime.now())) {
-                throw new BadRequestException(new APIResponse(Boolean.FALSE,
-                        "Date time can not be less than current time"));
+                throw new BadRequestException("Date time can not be less than current time");
             }
 
             task.setDueDate(scheduleTime);
@@ -85,7 +83,7 @@ public class TaskService {
     public BaseResponse<TaskResponse> enableTask(long taskId, UserPrincipal userPrincipal) {
 
         Task task = taskRepo.findById(taskId)
-                .orElseThrow(() -> new BadRequestException(new APIResponse(Boolean.FALSE, "Task not found")));
+                .orElseThrow(() -> new BadRequestException("Task not found"));
 
         task.setStatus("ENABLED");
         Task save = taskRepo.save(task);
@@ -97,7 +95,7 @@ public class TaskService {
     public BaseResponse<TaskResponse> disableTask(long taskId, UserPrincipal userPrincipal) {
 
         Task task = taskRepo.findById(taskId)
-                .orElseThrow(() -> new BadRequestException(new APIResponse(Boolean.FALSE, "Task not found")));
+                .orElseThrow(() -> new BadRequestException( "Task not found"));
 
         task.setStatus("DISABLED");
         Task save = taskRepo.save(task);
@@ -110,7 +108,7 @@ public class TaskService {
     public BaseResponse<TaskResponse> deleteTask(long taskId, UserPrincipal userPrincipal) {
 
         Task task = taskRepo.findByIdAndUserId(taskId, userPrincipal.getId())
-                .orElseThrow(() -> new BadRequestException(new APIResponse(Boolean.FALSE, "Task not found")));
+                .orElseThrow(() -> new BadRequestException( "Task not found"));
 
         taskRepo.delete(task);
         TaskResponse apply = taskMapper.apply(task);
@@ -118,14 +116,16 @@ public class TaskService {
     }
 
     public BaseResponse<List<TaskResponse>> findTasks(UserPrincipal principal) {
-        List<TaskResponse> taskResponses = taskRepo.findAllByUserIdOrderByIdDesc(principal.getId()).stream().map(taskMapper).collect(Collectors.toList());
+        List<TaskResponse> taskResponses = taskRepo.findAllByUserIdOrderByIdDesc(principal.getId())
+                .stream().map(taskMapper).collect(Collectors.toList());
         return new BaseResponse<>(Boolean.TRUE, "All task", taskResponses);
     }
 
     public PageResponse<TaskResponse> findTasks(UserPrincipal principal, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Task> taskPage = taskRepo.findAllByUserId(principal.getId(), pageable);
-        List<TaskResponse> taskResponseList = taskPage.getContent().stream().map(taskMapper).collect(Collectors.toList());
+        List<TaskResponse> taskResponseList = taskPage.getContent()
+                .stream().map(taskMapper).collect(Collectors.toList());
 
         return new PageResponse<>(true, "task page", taskResponseList,
                 taskPage.getNumber(),

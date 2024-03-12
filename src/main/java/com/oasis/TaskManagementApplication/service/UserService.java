@@ -36,8 +36,7 @@ public class UserService {
     public BaseResponse<UserResponse> updateUser(UserUpdateRequest userRequest, UserPrincipal userPrincipal) {
         User user = userRepo.findById(userPrincipal.getId())
                 .orElseThrow(() ->
-                        new BadRequestException(new APIResponse(Boolean.FALSE,
-                                "User not found")));
+                        new BadRequestException("User not found"));
 
         if (userRequest.getEmail() != null) {
             user.setEmail(userRequest.getEmail());
@@ -61,8 +60,7 @@ public class UserService {
     public BaseResponse<UserResponse> deleteUser(UserPrincipal userPrincipal) {
         User user = userRepo.findById(userPrincipal.getId())
                 .orElseThrow(() ->
-                        new BadRequestException(new APIResponse(Boolean.FALSE,
-                                "User not found")));
+                        new BadRequestException("User not found"));
 
         userRepo.deleteById(userPrincipal.getId());
         UserResponse apply = userMapper.apply(user);
@@ -88,7 +86,13 @@ public class UserService {
                 userPage.getTotalPages(),
                 userPage.isFirst(),
                 userPage.isLast());
-
     }
 
+    public BaseResponse<UserResponse> getUserById(UserPrincipal userPrincipal) {
+        User user = userRepo.findById(userPrincipal.getId())
+                .orElseThrow(() ->
+                        new BadRequestException("User not found"));
+        UserResponse apply = userMapper.apply(user);
+        return new BaseResponse<>(Boolean.TRUE, "User data", apply);
+    }
 }

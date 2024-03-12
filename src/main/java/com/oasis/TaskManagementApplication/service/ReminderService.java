@@ -49,7 +49,8 @@ public class ReminderService {
 
     public BaseResponse<ReminderResponse> updateReminder(long reminderId, UpdateReminderRequest reminderRequest, UserPrincipal principal) {
 
-        Reminder reminder = reminderRepo.findById(reminderId).orElseThrow(() -> new ResourceNotFoundException(new APIResponse(Boolean.FALSE, "Reminder not found")));
+        Reminder reminder = reminderRepo.findById(reminderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Reminder not found"));
             if (reminderRequest.getReminderTime() != null){
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm:ss");
                 LocalTime localTime = LocalTime.parse(reminderRequest.getReminderTime(), formatter);
@@ -65,8 +66,7 @@ public class ReminderService {
     public BaseResponse<ReminderResponse> deleteReminder(long reminderId, UserPrincipal principal) {
 
         Reminder reminder = reminderRepo.findById(reminderId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        new APIResponse(Boolean.FALSE, "Reminder not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Reminder not found"));
 
         reminderRepo.deleteById(reminderId);
         ReminderResponse apply = reminderMapper.apply(reminder);
