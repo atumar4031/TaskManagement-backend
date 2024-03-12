@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/reminder")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ReminderController {
 
     private final ReminderService reminderService;

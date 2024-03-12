@@ -1,6 +1,7 @@
 package com.oasis.TaskManagementApplication.exception;
 
 import com.oasis.TaskManagementApplication.dto.res.APIResponse;
+import com.oasis.TaskManagementApplication.dto.res.BaseResponse;
 import com.oasis.TaskManagementApplication.dto.res.ExceptionResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -59,10 +60,10 @@ public class AppExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<APIResponse> resolveException(BadRequestException exception) {
-        APIResponse apiResponse = exception.getApiResponse();
-
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<BaseResponse<?>> resolveException(BadRequestException exception) {
+       String message = exception.getMessage();
+        BaseResponse<?> response = new BaseResponse<>(Boolean.FALSE, message, null);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
