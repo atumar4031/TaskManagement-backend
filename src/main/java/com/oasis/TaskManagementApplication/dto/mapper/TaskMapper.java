@@ -12,6 +12,7 @@ public class TaskMapper implements Function<Task, TaskResponse> {
     @Override
     public TaskResponse apply(Task task) {
         TaskResponse taskResponse = new TaskResponse();
+        taskResponse.setId(task.getId());
         taskResponse.setUserId(task.getUserId());
         taskResponse.setTitle(task.getTitle());
         taskResponse.setDescription(task.getDescription());

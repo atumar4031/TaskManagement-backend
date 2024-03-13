@@ -32,8 +32,8 @@ public class TaskService {
     private final TaskMapper taskMapper;
 
     public BaseResponse<TaskResponse> createTask(TaskRequest taskRequest, UserPrincipal userPrincipal) {
-        String  dueDate = taskRequest.getDueDate()+"T23:59:59";
-        LocalDateTime scheduleTime = LocalDateTime.parse(dueDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime scheduleTime = LocalDateTime.parse(taskRequest.getDueDate(), formatter);
         if (scheduleTime.isBefore(LocalDateTime.now())) {
             throw new BadRequestException("Date time can not be less than current time");
         }
@@ -65,8 +65,8 @@ public class TaskService {
             task.setPriority(taskRequest.getPriority());
         }
         if (taskRequest.getDueDate() != null) {
-            String  dueDate = taskRequest.getDueDate()+"T23:59:59";
-            LocalDateTime scheduleTime = LocalDateTime.parse(dueDate);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime scheduleTime = LocalDateTime.parse(taskRequest.getDueDate(), formatter);
             if (scheduleTime.isBefore(LocalDateTime.now())) {
                 throw new BadRequestException("Date time can not be less than current time");
             }

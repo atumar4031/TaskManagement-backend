@@ -165,7 +165,7 @@ public class AppExceptionHandler {
     // APPLICATION FALLBACK EXCEPTIONS HANDLER
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BaseResponse<?>> resolveExceptions(Exception exception) {
-        log.info("FALLBACK ERROR HERE ::-> ", exception.fillInStackTrace());
+        log.info("FALLBACK ERROR HERE ::-> "+ exception.getMessage());
         BaseResponse<?> baseResponse = new BaseResponse<>(Boolean.FALSE, exception.getMessage(), null);
         return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
