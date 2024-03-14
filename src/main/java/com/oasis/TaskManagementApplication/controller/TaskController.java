@@ -62,9 +62,11 @@ public class TaskController {
     @GetMapping("/paged")
     public ResponseEntity<PageResponse<TaskResponse>> findTasks(@CurrentUser UserPrincipal principal,
                                                                 @RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "100") int size
+                                                                @RequestParam(defaultValue = "100") int size,
+                                                                @RequestParam(defaultValue = "id", required = false) String sortBy,
+                                                                @RequestParam(defaultValue = "desc", required = false) String sortOrder
     ) {
-        PageResponse<TaskResponse> response = taskService.findTasks(principal, page, size);
+        PageResponse<TaskResponse> response = taskService.findTasks(principal, page, size, sortBy, sortOrder);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

@@ -121,8 +121,13 @@ public class TaskService {
         return new BaseResponse<>(Boolean.TRUE, "All task", taskResponses);
     }
 
-    public PageResponse<TaskResponse> findTasks(UserPrincipal principal, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+    public PageResponse<TaskResponse> findTasks(UserPrincipal principal, int page, int size, String sortBy, String sortOrder) {
+        if (!List.of("asc", "desc").contains(sortOrder)){
+            throw new BadRequestException("Sort direction must be either asc or desc");
+        }
+        Sort.Direction direction = sortOrder.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
         Page<Task> taskPage = taskRepo.findAllByUserId(principal.getId(), pageable);
         List<TaskResponse> taskResponseList = taskPage.getContent()
                 .stream().map(taskMapper).collect(Collectors.toList());
