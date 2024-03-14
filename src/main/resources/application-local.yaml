@@ -24,32 +24,6 @@ spring:
             enable: true
 app:
   token:
-    expiration: 180000
-    refresh-expiration: 360000
+    expiration: 3600000
+    refresh-expiration: 7200000
     secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-
-
-#spring:
-#  sql:
-#    init:
-#      mode: always
-#  jpa:
-#    defer-datasource-initialization: true
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: false
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/oasis_task_management
-#    username: postgres
-#    password: atumar4031
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: almustaphat.tukur@gmail.com
-#    password: hlyisvlwobmekpbu
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
