@@ -12,12 +12,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name = "ATTECH",
-                        email = "support@attech.dev",
-                        url = "https://attech.dev"
+                        name = "OASIS MANAGEMENT ASSESSMENT - by Almustapha Tukur",
+                        email = "support@oasis-management.dev",
+                        url = "https://oasis-management.dev"
                 ),
-                description = "OpenApi documentation for User Identity Management system",
-                title = "OpenApi specification - ATTECH",
+                description = "OpenApi documentation for Oasis Task Management system",
+                title = "OpenApi specification - OASIS",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",
@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 @Server(
                         description = "PROD ENV",
-                        url = "https://attech.dev/identity-management"
+                        url = "https://oasis-management.dev/task-tracker"
                 )
         },
         security = {
