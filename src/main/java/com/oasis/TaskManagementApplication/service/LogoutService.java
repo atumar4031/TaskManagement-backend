@@ -1,5 +1,7 @@
 package com.oasis.TaskManagementApplication.service;
 
+import com.oasis.TaskManagementApplication.dto.res.BaseResponse;
+import com.oasis.TaskManagementApplication.dto.res.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,20 +14,20 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class LogoutService implements LogoutHandler {
+public class LogoutService {
 
-    @Override
-    public void logout(HttpServletRequest request,
-                       HttpServletResponse response,
-                       Authentication authentication) {
+    private final HttpServletRequest request;
+    public BaseResponse<UserResponse> logout() {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
 
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
+            return new BaseResponse<>(Boolean.FALSE, "Invalid header", null);
         }
 
         SecurityContextHolder.clearContext();
         log.info("USER LOGOUT SUCCESSFULLY");
+        return new BaseResponse<>(Boolean.FALSE, "User logout successfully", null);
+
     }
 }

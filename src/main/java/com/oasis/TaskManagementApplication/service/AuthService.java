@@ -40,6 +40,7 @@ public class AuthService {
     private final RoleRepo roleRepo;
     private final UserMapper userMapper;
     private final EmailService emailService;
+    private final LogoutService logoutService;
 
     public BaseResponse<UserResponse> registerUser(UserRequest userRequest) {
 
@@ -101,5 +102,9 @@ public class AuthService {
                 .build();
 
         return new BaseResponse<>(Boolean.TRUE, "User logged in", authResponse);
+    }
+
+    public BaseResponse<UserResponse> logout() {
+        return logoutService.logout();
     }
 }

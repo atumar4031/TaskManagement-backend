@@ -37,4 +37,12 @@ public class AuthController {
                 .status(HttpStatus.OK)
                 .body(response);
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<BaseResponse<UserResponse>> logout() {
+        BaseResponse<UserResponse> response = authenticate.logout();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+    }
 }
